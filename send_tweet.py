@@ -2,6 +2,8 @@ import requests
 from requests_oauthlib import OAuth1
 import os
 import base64
+from dotenv import load_dotenv
+load_dotenv()
 
 def read_image(url):
     response = requests.get(url, stream=True)
@@ -27,17 +29,20 @@ def upload_image(image, oauth):
 
 
 def send_tweet(content):
-    client_key = '6rhsZNtLGRxhvRWjuRaxf64Es'
-    client_secret = 'uGySvEtJGtAb4u8WwLko26f60KqqR4jaAfxP7db1quQIJa2IJt'
-    resource_owner_key = '83966663-PFtqUiGvkDwww5lnEGvxfMRUZvazUrz3ucyoMfZ4r'
-    resource_owner_secret = '0v31hTygZXckCj1Vf8BsS4DgtArZsEcOZxNg7jmL9zLC5'
+    client_key = os.getenv("CLIENT_KEY")
+    client_secret = os.getenv("CLIENT_SECRET")
+    resource_owner_key = os.getenv("OWNER_KEY")
+    resource_owner_secret = os.getenv("OWNER_SECRET")
 
     oauth = OAuth1(client_key,
                     client_secret=client_secret,
                     resource_owner_key=resource_owner_key,
                     resource_owner_secret=resource_owner_secret,
                     signature_type='body')
-    media_id = upload_image(content['image'], oauth)
+    if content['image']:
+        media_id = upload_image(content['image'], oauth)
+    else:
+        media_id = ''
     tweet = content['text']
     post_data = {
         'status': tweet,
@@ -51,10 +56,3 @@ def send_tweet(content):
     if not response.ok:
         print(response.json())
     return response.json()
-
-test_tweet = {
-    'text': 'test\ntweet 2',
-    'image': "https://upload.wikimedia.org/wikipedia/commons/4/44/Ttongppang%28Poo_Bun%2C_%EB%98%A5%EB%B9%B5%29_%287399937534%29.jpg"
-}
-
-send_tweet(test_tweet)
