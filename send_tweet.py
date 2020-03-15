@@ -56,6 +56,7 @@ def send_tweet(content):
 
     if not response.ok:
         print(response.json())
+        return False
     else:
         print('bread twote!')
-    return response.json()
+    return True

@@ -16,11 +16,12 @@ def tweet_breads():
     print('grabbing a bread...')
     bread = random.choice(breads)
     print('bread grabbed. attempting to tweet...')
-    send_tweet(bread)
-
-tweet_breads()
-tweet_breads()
-tweet_breads()
-
+    success = False
+    while not success: # catch failing posts
+        result = send_tweet(bread)
+        success = result
+print(target)
+print(datetime.now())
+print(secs)
 t = Timer(secs, tweet_breads)
 t.start()
