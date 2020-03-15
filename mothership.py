@@ -13,7 +13,9 @@ secs = delta_t.total_seconds()
 breads = get_breads()
 
 def tweet_breads():
+    print('grabbing a bread...')
     bread = random.choice(breads)
+    print('bread grabbed. attempting to tweet...')
     send_tweet(bread)
 
 tweet_breads()

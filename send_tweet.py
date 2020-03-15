@@ -51,6 +51,7 @@ def send_tweet(content):
 
     endpoint = f'https://api.twitter.com/1.1/statuses/update.json'
 
+    print('tweet built. attemping to send...')
     response = requests.post(url=endpoint, data=post_data, auth=oauth)
 
     if not response.ok:
