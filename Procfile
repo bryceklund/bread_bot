@@ -1,2 +1,2 @@
-worker: mothership.py
+worker: python mothership.py
 web: python server.py
