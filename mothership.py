@@ -16,5 +16,9 @@ def tweet_breads():
     bread = random.choice(breads)
     send_tweet(bread)
 
+tweet_breads()
+tweet_breads()
+tweet_breads()
+
 t = Timer(secs, tweet_breads)
 t.start()
