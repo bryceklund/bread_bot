@@ -24,8 +24,11 @@ def upload_image(image, oauth):
         'media_data': image_bytes,
         'media_category': 'tweet_image'
     }
-    media_id = requests.post(url=endpoint, data=post_data, auth=oauth)
-    return media_id.json()['media_id']
+    try:
+        media_id = requests.post(url=endpoint, data=post_data, auth=oauth)
+        return media_id.json()['media_id']
+    except:
+        return -1
 
 
 def send_tweet(content):
@@ -40,7 +43,10 @@ def send_tweet(content):
                     resource_owner_secret=resource_owner_secret,
                     signature_type='body')
     if content['image']:
-        media_id = upload_image(content['image'], oauth)
+        try:
+            media_id = upload_image(content['image'], oauth) 
+        except:
+            raise Exception('Image upload error')
     else:
         media_id = ''
     tweet = content['text']
