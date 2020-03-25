@@ -13,11 +13,11 @@ secs = delta_t.total_seconds()
 breads = get_breads()
 
 def tweet_breads():
-    print('grabbing a bread...')
-    bread = random.choice(breads)
-    print('bread grabbed. building tweet...')
     success = False
     while not success: # catch failing posts
+        print('grabbing a bread...')
+        bread = random.choice(breads)
+        print('bread grabbed. building tweet...')
         result = send_tweet(bread)
         success = result
 print('target time: ', target)
