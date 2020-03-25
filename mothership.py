@@ -20,8 +20,9 @@ def tweet_breads():
     while not success: # catch failing posts
         result = send_tweet(bread)
         success = result
-print(target)
-print(datetime.now())
-print(secs)
+print('target time: ', target)
+print('current time: ', datetime.now())
+print('seconds until next tweet: ', secs)
 t = Timer(secs, tweet_breads)
 t.start()
+tweet_breads()

@@ -42,18 +42,23 @@ def send_tweet(content):
                     resource_owner_key=resource_owner_key,
                     resource_owner_secret=resource_owner_secret,
                     signature_type='body')
+
+    tweet = content['text']
+
     if content['image']:
         try:
             media_id = upload_image(content['image'], oauth) 
+            post_data = {
+                'status': tweet,
+                'media_ids': media_id
+            }
         except:
-            raise Exception('Image upload error')
+            print('failed to grab media_id, returning false')
+            return False
     else:
-        media_id = ''
-    tweet = content['text']
-    post_data = {
-        'status': tweet,
-        'media_ids': media_id
-    }
+        post_data = {
+            'status': tweet
+        }
 
     endpoint = f'https://api.twitter.com/1.1/statuses/update.json'
 
@@ -61,7 +66,7 @@ def send_tweet(content):
     response = requests.post(url=endpoint, data=post_data, auth=oauth)
 
     if not response.ok:
-        print(response.json())
+        print('API call failed: ', response.json())
         return False
     else:
         print('bread twote!')
