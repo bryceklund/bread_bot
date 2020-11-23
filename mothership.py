@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from threading import Timer
 
 today = datetime.today()
-target = today.replace(day=today.day, hour=23, minute=20, second=0, microsecond=0) + timedelta(days=1)
+target = today.replace(day=today.day, hour=0, minute=20, second=0, microsecond=0) + timedelta(days=1)
 delta_t = target - today
 
 secs = delta_t.total_seconds()
